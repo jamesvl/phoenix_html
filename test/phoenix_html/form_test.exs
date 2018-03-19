@@ -1236,6 +1236,10 @@ defmodule Phoenix.HTML.FormTest do
     assert input_id(:search, :key, "foo bar") == "search_key_foo_bar"
     assert input_id(:search, :key, "Foo baR") == "search_key_Foo_baR"
     assert input_id(:search, :key, "F✓o]o%b+a'R") == "search_key_F_o_o_b_a_R"
+    assert input_id(:search, :key, nil) == "search_key_nil"
+    assert input_id(:search, :key, 37) == "search_key_37"
+    assert input_id(:search, :key, 0) == "search_key_0"
+    assert input_id(:search, :key, -1) == "search_key_-1"
   end
 
   ## input_name/2

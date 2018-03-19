@@ -380,13 +380,18 @@ defmodule Phoenix.HTML.Form do
   Returns an id of a corresponding form field and value attached to it.
   Useful for radio buttons and inputs like multiselect checkboxes.
   """
-  @spec input_id(t | atom, field, String.t() | atom) :: String.t()
+  @spec input_id(t | atom, field, String.t() | atom | integer) :: String.t()
   def input_id(name, field, value) when is_atom(value) do
     input_id(name, field, Atom.to_string(value))
   end
 
   def input_id(name, field, value) when is_binary(value) do
     value_id = String.replace(value, ~r/\W/u, "_")
+    input_id(name, field) <> "_" <> value_id
+  end
+
+  def input_id(name, field, value) when is_integer(value) do
+    value_id = Integer.to_string(value)
     input_id(name, field) <> "_" <> value_id
   end
 
